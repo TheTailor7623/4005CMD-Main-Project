@@ -4,6 +4,8 @@ from datetime import date, datetime
 from random import randrange, uniform
 import time
 
+#Callback functions
+
 #Connecting to broker
 mqttBroker = "mqtt.eclipseprojects.io" 
 

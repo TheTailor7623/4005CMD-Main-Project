@@ -8,7 +8,7 @@ import time
 mqttBroker = "mqtt.eclipseprojects.io" 
 
 #Creating a new client "New boat prototype"
-client = mqtt.Client("New boat prototype")
+client = mqtt.Client("Boat prototype 1")
 
 #Connecting the new client to the broker
 client.connect(mqttBroker)
@@ -33,6 +33,26 @@ while True:
 
     #Print statement to inform of published "Fuel" + timeout
     print("Just published " + str(randFuel) + " to topic Fuel")
+    time.sleep(2)
+
+    #Generating random amplitude value
+    randAmplitude = uniform(1.0, 10.0)
+
+    #Creating and publishing to an "amplitude" topic
+    client.publish("Amplitude", randAmplitude)
+
+    #Print statement to inform of published amplitude + timeout
+    print("Just published " + str(randAmplitude) + " to topic amplitude")
+    time.sleep(2)
+
+    #Generating random acceleration value
+    randAcceleration = uniform(50.0, 100.0)
+
+    #Creating and publishing to an "acceleration" topic
+    client.publish("Acceleration", randAcceleration)
+
+    #Print statement to inform of published acceleration + timeout
+    print("Just published " + str(randAcceleration) + " to topic acceleration")
     time.sleep(2)
     
 

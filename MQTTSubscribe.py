@@ -15,9 +15,19 @@ def on_message(client, userdata, message):
         print("Recieved frequency: ", payload)
 
     #If the topic is Fuel...
-    if topic == "Fuel":
+    elif topic == "Fuel":
         #Print the decoded content of message "payload" from topic "Fuel"
         print("Recieved fuel: ", payload)
+
+    #If the topic is Amplitude...
+    elif topic == "Amplitude":
+        #Print the decoded content of message "payload" from topic "Amplitude"
+        print("Recieved amplitude: ", payload)
+
+    #If the topic is Acceleration...
+    elif topic == "Acceleration":
+        #Print the decoded content of message "payload" from topic "Acceleration"
+        print("Recieved acceleration: ", payload)
 
 #Connects to broker    
 mqttBroker = "mqtt.eclipseprojects.io"
@@ -31,6 +41,8 @@ client.connect(mqttBroker)
 #Subscribe client to topics Frequency and Fuel
 client.subscribe("Frequency")
 client.subscribe("Fuel")
+client.subscribe("Amplitude")
+client.subscribe("Acceleration")
 
 #When client recieves message than run on_message function
 client.on_message = on_message

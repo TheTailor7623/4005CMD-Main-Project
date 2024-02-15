@@ -1,19 +1,51 @@
 import paho.mqtt.client as mqtt
 import time
 
+#Function to be called on recieving a message
 def on_message(client, userdata, message):
-    print("Recieved frequency: ", str(message.payload.decode("utf-8")))
-    print("Recieved fuel: ", str(message.payload.decode("utf-8")))
+    #Finds out what topic a message is from and attaches it to variable "topic"
+    topic = message.topic
     
+    #Decodes content of message and attaches it to variable "payload"
+    payload = message.payload.decode("utf-8")
+
+    #If the topic is Frequency...
+    if topic == "Frequency":
+        #Print the decoded content of message "payload" from topic "Frequency"
+        print("Recieved frequency: ", payload)
+
+    #If the topic is Fuel...
+    elif topic == "Fuel":
+        #Print the decoded content of message "payload" from topic "Fuel"
+        print("Recieved fuel: ", payload)
+
+    #If the topic is Amplitude...
+    elif topic == "Amplitude":
+        #Print the decoded content of message "payload" from topic "Amplitude"
+        print("Recieved amplitude: ", payload)
+
+    #If the topic is Acceleration...
+    elif topic == "Acceleration":
+        #Print the decoded content of message "payload" from topic "Acceleration"
+        print("Recieved acceleration: ", payload)
+
+#Connects to broker    
 mqttBroker = "mqtt.eclipseprojects.io"
+
+#Creates new client "iPhone"
 client = mqtt.Client("iPhone")
+
+#Connects client "iPhone" to broker
 client.connect(mqttBroker)
 
-client.loop_start()
+#Subscribe client to topics Frequency and Fuel
 client.subscribe("Frequency")
 client.subscribe("Fuel")
+client.subscribe("Amplitude")
+client.subscribe("Acceleration")
 
+#When client recieves message than run on_message function
 client.on_message = on_message
 
-time.sleep(30)
-client.loop_end()
+#Run this loop forever
+client.loop_forever()

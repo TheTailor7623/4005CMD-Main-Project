@@ -4,7 +4,11 @@ from datetime import date, datetime
 from random import randrange, uniform
 import time
 
-#Callback functions
+#Callback functions (added before connecting to the broker to ensure that callbacks are setup and ready in case events occur as soon as connection is made)
+#def on_connect(client, userdata, flags, rc):
+#def on_publish(client, userdata, mid):
+#def on_disconnect(client, userdata, rc):
+#def on_log(client, userdata, level, buf):
 
 #Connecting to broker
 mqttBroker = "mqtt.eclipseprojects.io" 

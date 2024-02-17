@@ -4,7 +4,17 @@ from datetime import date, datetime
 from random import randrange, uniform
 import time
 
-#Callback functions (added before connecting to the broker to ensure that callbacks are setup and ready in case events occur as soon as connection is made)
+
+#Callback functions
+'''
+Callback functions are being added
+- They are added before connecting to broker to ensure that they are setup and ready in case of events occuring as soon as the connection is made
+The callback functions being added are...
+- on_connect
+- on_publish
+- on_disconnect
+- on_log
+'''
 
 #on_connect callback function...
 def on_connect(client, userdata, flags, rc):
@@ -39,20 +49,32 @@ def on_log(client, userdata, level, buf):
     print(f"Log: {buf}")
 
 
-# Creating a new client "New boat prototype"
+#Client
+'''
+Creating a new client 
+Assigning the callback functions... after the client has been created 
+- on_connect
+- on_publish
+- on_disconnect
+- on_log
+Connecting to the broker
+Connecting client to broker
+Exception handling for errors during connecting the client to broker
+Starting the client loop
+'''
 client = mqtt.Client("Boat prototype 1")
 
-# Assigning the on_connect, on_publish, on_log and disconnect callback functions after creating the client
+#Assigning the callback functions
 client.on_connect = on_connect
 client.on_publish = on_publish
 client.on_log = on_log
 client.on_disconnect = on_disconnect
 
-#Connecting to broker
+#Broker
 mqttBroker = "mqtt.eclipseprojects.io" 
 
-#Connecting the new client to the broker
-#Exception message for error in connection
+#Client-to-broker connection
+#Exception
 try:
     client.connect(mqttBroker)
 except Exception as e:
@@ -60,7 +82,17 @@ except Exception as e:
 
 client.loop_start()
 
-#While loop to publish random values
+'''
+While loop started to produce and publish random sensor values
+- Frequency
+- Fuel
+- Amplitude
+- Acceleration
+Establishing Quality Of Service(qos) level
+Retain is set to True so last values produced will be saved for when a new/existing subscriber re-connects to broker
+'''
+
+#While loop 
 while True:
     #Generating random frequency value
     randFrequency = uniform(1.0, 10.0)

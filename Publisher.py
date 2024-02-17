@@ -58,6 +58,8 @@ try:
 except Exception as e:
     print(f"Connection failed - The error was: {e}")
 
+client.loop_start()
+
 #While loop to publish random values
 while True:
     #Generating random frequency value

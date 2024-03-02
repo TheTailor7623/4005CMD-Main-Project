@@ -38,7 +38,6 @@ def on_log(client, userdata, level, buf):
     # Prints log messages
     print(f"Log: {buf}")
 
-
 # Creating a new client "New boat prototype"
 client = mqtt.Client("Boat prototype 1")
 
@@ -60,54 +59,60 @@ except Exception as e:
 
 client.loop_start()
 
+class boatPrototype:
+    def __init__(self, prototypeNo, weight):
+        self.prototypeNo = prototypeNo
+        self.weight = weight
+
+    def departing(self, fuelTankVolume, frequencySensor, accelerationSensor, amplitudeSensor):
+        print("Boat has started moving...")
+
+        #Publishing to topic "Frequency"
+        # Quality of service = 2
+        # Last message is retained for new subscribers
+        client.publish("Frequency", frequencySensor, qos=2, retain = True)
+
+        #Print statement to inform of published Frequency + timeout
+        print("Just published " + str(frequencySensor) + " to topic Frequency")
+        time.sleep(2)
+
+        #Publishing to topic "Fuel"
+        # Quality of service = 2
+        # Last message is retained for new subscribers
+        result, mid = client.publish("Fuel", fuelTankVolume, qos=2, retain = True)
+
+        #Print statement to inform of published "Fuel" + timeout
+        print("Just published " + str(fuelTankVolume) + " to topic Fuel")
+        time.sleep(2)
+
+        #Publishing to topic "amplitude"
+        # Quality of service = 2
+        # Last message is retained for new subscribers
+        result, mid = client.publish("Amplitude", amplitudeSensor, qos=2, retain = True)
+
+        #Print statement to inform of published amplitude + timeout
+        print("Just published " + str(amplitudeSensor) + " to topic amplitude")
+        time.sleep(2)
+
+        #Publishing to topic "acceleration"
+        # Quality of service = 2
+        # Last message is retained for new subscribers
+        result, mid = client.publish("Acceleration", accelerationSensor, qos=2, retain = True)
+
+        #Print statement to inform of published acceleration + timeout
+        print("Just published " + str(accelerationSensor) + " to topic acceleration")
+        time.sleep(2)
+
+boat1 = boatPrototype(1, 40000000)
+
 #While loop to publish random values
 while True:
-    #Generating random frequency value
+    # Generating random values
     randFrequency = uniform(1.0, 10.0)
-
-    #Publishing to topic "Frequency"
-    # Quality of service = 2
-    # Last message is retained for new subscribers
-    client.publish("Frequency", randFrequency, qos=2, retain = True)
-
-    #Print statement to inform of published Frequency + timeout
-    print("Just published " + str(randFrequency) + " to topic Frequency")
-    time.sleep(2)
-
-    #Generating random fuel value
     randFuel = uniform(20.0, 50.0)
-
-    #Publishing to topic "Fuel"
-    # Quality of service = 2
-    # Last message is retained for new subscribers
-    result, mid = client.publish("Fuel", randFuel, qos=2, retain = True)
-
-    #Print statement to inform of published "Fuel" + timeout
-    print("Just published " + str(randFuel) + " to topic Fuel")
-    time.sleep(2)
-
-    #Generating random amplitude value
     randAmplitude = uniform(1.0, 10.0)
-
-    #Publishing to topic "amplitude"
-    # Quality of service = 2
-    # Last message is retained for new subscribers
-    result, mid = client.publish("Amplitude", randAmplitude, qos=2, retain = True)
-
-    #Print statement to inform of published amplitude + timeout
-    print("Just published " + str(randAmplitude) + " to topic amplitude")
-    time.sleep(2)
-
-    #Generating random acceleration value
     randAcceleration = uniform(50.0, 100.0)
 
-    #Publishing to topic "acceleration"
-    # Quality of service = 2
-    # Last message is retained for new subscribers
-    result, mid = client.publish("Acceleration", randAcceleration, qos=2, retain = True)
-
-    #Print statement to inform of published acceleration + timeout
-    print("Just published " + str(randAcceleration) + " to topic acceleration")
-    time.sleep(2)
+    # Calling the departing method with random values
+    boat1.departing(randFuel, randFrequency, randAcceleration, randAmplitude)
     
-

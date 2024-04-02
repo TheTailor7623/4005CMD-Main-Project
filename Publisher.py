@@ -168,7 +168,7 @@ sensors = Sensors()
 boat = BoatPrototype("Boat 1", 40000000, mqtt_protocol)
 
 # Initialize DatabaseHandler
-db_handler = DatabaseHandler("DBIntegration\mqttDB", 40000000)
+db_handler = DatabaseHandler("4005CMD-Main-Project\mqttDB", 40000000)
 
 while True:
     # Ask user if they want to turn off any sensors
